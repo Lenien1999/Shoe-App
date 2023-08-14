@@ -21,19 +21,23 @@ class _ProductDetailsState extends State<ProductDetails> {
     'assets/images/two.png'
   ];
   bool isSelected = false;
-  int clickedIndex = -1;
-
+  int clickedIndex = 0;
+  int sizeclickedIndex = 0;
+  List shoeSize = [4, 4.5, 5, 5.5, 6];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+      body: Padding(
+        padding:
+            const EdgeInsets.only(left: 12.0, right: 12, bottom: 12, top: 5),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Stack(
               children: [
                 Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  height: MediaQuery.of(context).size.height * 1.2 / 3,
+                  // margin: const EdgeInsets.symmetric(horizontal: 10),
+                  height: MediaQuery.of(context).size.height * 1.4 / 3,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       color: const Color.fromARGB(255, 240, 231, 231)),
@@ -78,7 +82,209 @@ class _ProductDetailsState extends State<ProductDetails> {
                 imageList.length,
                 (index) => productViewTile(index, product: widget.products),
               )
-            ])
+            ]),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  widget.products.title,
+                  style: GoogleFonts.adamina(
+                    color: Colors.black,
+                    fontSize: 18,
+                  ),
+                ),
+                IconButton(
+                    onPressed: () {
+                      setState(() {
+                        isSelected = !isSelected;
+                      });
+                    },
+                    icon: isSelected
+                        ? Icon(
+                            Icons.favorite_border,
+                            color: isSelected ? Colors.grey : Colors.red,
+                          )
+                        : Icon(
+                            Icons.favorite,
+                            color: isSelected ? Colors.grey : Colors.red,
+                          ))
+              ],
+            ),
+            Text(
+              "\$ ${widget.products.price.toString()}",
+              style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold),
+            ),
+            Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(23),
+                      border: Border.all(
+                        width: 1,
+                        color: const Color.fromARGB(255, 243, 240, 240),
+                      ),
+                      color: Colors.white),
+                  child: const Text("5 Piars Left",
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Container(
+                  padding: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(23),
+                      border: Border.all(
+                        width: 1,
+                        color: const Color.fromARGB(255, 243, 240, 240),
+                      ),
+                      color: Colors.white),
+                  child: const Text(
+                    "Sold 50",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Container(
+                  padding: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(23),
+                      border: Border.all(
+                        width: 1,
+                        color: const Color.fromARGB(255, 243, 240, 240),
+                      ),
+                      color: Colors.white),
+                  child: const Row(
+                    children: [
+                      Icon(
+                        Icons.star,
+                        color: Colors.orange,
+                      ),
+                      Text("4.9",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      Text("(69 review)"),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Divider(
+              height: 2,
+              color: Colors.grey.shade200,
+            ),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Select Size",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500),
+                ),
+                Text(
+                  "Size Chart",
+                  style: TextStyle(
+                      color: Colors.green,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ...List.generate(
+                    shoeSize.length,
+                    (index) => buildSize(
+                          index: index,
+                        ))
+              ],
+            ),
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  height: 50,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              width: 2,
+                              color: Colors.green,
+                            ),
+                            color: Colors.white),
+                        child: const Center(
+                            child: Icon(
+                          Icons.message,
+                          color: Colors.green,
+                        )),
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Container(
+                        width: 150,
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(23),
+                            border: Border.all(
+                              width: 2,
+                              color: Colors.green,
+                            ),
+                            color: Colors.white),
+                        child: const Center(
+                            child: Row(
+                          children: [
+                            Icon(
+                              Icons.shopping_cart_outlined,
+                              color: Colors.green,
+                            ),
+                            Text("Add to cart")
+                          ],
+                        )),
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Container(
+                        width: 140,
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(23),
+                            border: Border.all(
+                              width: 2,
+                              color: Colors.green,
+                            ),
+                            color: Colors.green),
+                        child: const Center(
+                            child: Text(
+                          "Buy Now",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.white),
+                        )),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),
@@ -90,7 +296,7 @@ class _ProductDetailsState extends State<ProductDetails> {
       onTap: () {
         setState(() {
           clickedIndex = index;
-           product.imgUlr=imageList[index] ;
+          product.imgUlr = imageList[index];
         });
       },
       child: Container(
@@ -106,6 +312,35 @@ class _ProductDetailsState extends State<ProductDetails> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Image.asset(imageList[index]),
+        ),
+      ),
+    );
+  }
+
+  Widget buildSize({
+    required index,
+  }) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          sizeclickedIndex = index;
+        });
+      },
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(23),
+            border: Border.all(
+              width: 2,
+              color: const Color.fromARGB(255, 243, 240, 240),
+            ),
+            color: sizeclickedIndex == index ? Colors.green : Colors.white),
+        child: Center(
+          child: Text("US ${shoeSize[index]}",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color:
+                      sizeclickedIndex == index ? Colors.white : Colors.black)),
         ),
       ),
     );

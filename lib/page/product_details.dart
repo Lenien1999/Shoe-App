@@ -5,6 +5,8 @@ import 'package:shoe_shop/model/product_model.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shoe_shop/page/homepage.dart';
 
+import 'cart_page.dart';
+
 class ProductDetails extends StatefulWidget {
   final Products products;
   const ProductDetails({super.key, required this.products});
@@ -21,6 +23,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     'assets/images/two.png'
   ];
   bool isSelected = false;
+  bool isSelectedbutton = false;
   int clickedIndex = 0;
   int sizeclickedIndex = 0;
   List shoeSize = [4, 4.5, 5, 5.5, 6];
@@ -93,21 +96,28 @@ class _ProductDetailsState extends State<ProductDetails> {
                     fontSize: 18,
                   ),
                 ),
-                IconButton(
-                    onPressed: () {
-                      setState(() {
-                        isSelected = !isSelected;
-                      });
-                    },
-                    icon: isSelected
-                        ? Icon(
-                            Icons.favorite_border,
-                            color: isSelected ? Colors.grey : Colors.red,
-                          )
-                        : Icon(
-                            Icons.favorite,
-                            color: isSelected ? Colors.grey : Colors.red,
-                          ))
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        color: const Color.fromARGB(255, 219, 213, 213)),
+                    shape: BoxShape.circle,
+                  ),
+                  child: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          isSelected = !isSelected;
+                        });
+                      },
+                      icon: isSelected
+                          ? Icon(
+                              Icons.favorite_border,
+                              color: isSelected ? Colors.grey : Colors.red,
+                            )
+                          : Icon(
+                              Icons.favorite,
+                              color: isSelected ? Colors.grey : Colors.red,
+                            )),
+                )
               ],
             ),
             Text(
@@ -216,7 +226,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,
-                child: Container(
+                child: SizedBox(
                   height: 50,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -236,49 +246,80 @@ class _ProductDetailsState extends State<ProductDetails> {
                           color: Colors.green,
                         )),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 15,
                       ),
-                      Container(
-                        width: 150,
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(23),
-                            border: Border.all(
-                              width: 2,
-                              color: Colors.green,
-                            ),
-                            color: Colors.white),
-                        child: const Center(
-                            child: Row(
-                          children: [
-                            Icon(
-                              Icons.shopping_cart_outlined,
-                              color: Colors.green,
-                            ),
-                            Text("Add to cart")
-                          ],
-                        )),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            isSelectedbutton = !isSelectedbutton;
+                          });
+                        },
+                        child: Container(
+                          width: 150,
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(23),
+                              border: Border.all(
+                                width: 2,
+                                color: Colors.green,
+                              ),
+                              color: isSelectedbutton
+                                  ? Colors.green
+                                  : Colors.white),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                isSelectedbutton
+                                    ? Icons.done_outlined
+                                    : Icons.shopping_cart_outlined,
+                                color: isSelectedbutton
+                                    ? Colors.white
+                                    : Colors.green,
+                              ),
+                              isSelectedbutton
+                                  ? Text(
+                                      "Added",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: isSelectedbutton
+                                              ? Colors.white
+                                              : Colors.green),
+                                    )
+                                  : const Text("Add to cart")
+                            ],
+                          ),
+                        ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 15,
                       ),
-                      Container(
-                        width: 140,
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(23),
-                            border: Border.all(
-                              width: 2,
-                              color: Colors.green,
-                            ),
-                            color: Colors.green),
-                        child: const Center(
-                            child: Text(
-                          "Buy Now",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.white),
-                        )),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (__) {
+                            return const ShorpingCart();
+                          }));
+                        },
+                        child: Container(
+                          width: 140,
+                          // padding: const EdgeInsets.all(6),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(23),
+                              border: Border.all(
+                                width: 2,
+                                color: Colors.green,
+                              ),
+                              color: Colors.green),
+                          child: const Center(
+                              child: Text(
+                            "Buy Now",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          )),
+                        ),
                       ),
                     ],
                   ),

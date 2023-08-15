@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 // ignore: depend_on_referenced_packages
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shoe_shop/page/cart_page.dart';
 
 import 'productpage.dart';
 
@@ -41,15 +42,22 @@ class _HomePageState extends State<HomePage> {
               margin: const EdgeInsets.only(right: 12),
               decoration: BoxDecoration(
                   color: Colors.grey[100], shape: BoxShape.circle),
-              child: badges.Badge(
-                showBadge: _showCartBadge,
-                badgeContent: Text(
-                  _cartBadgeAmount.toString(),
-                  style: const TextStyle(color: Colors.white),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (__) {
+                    return ShorpingCart();
+                  }));
+                },
+                child: badges.Badge(
+                  showBadge: _showCartBadge,
+                  badgeContent: Text(
+                    _cartBadgeAmount.toString(),
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                  position: badges.BadgePosition.topEnd(top: -4, end: 3),
+                  child: IconButton(
+                      onPressed: () {}, icon: const Icon(Icons.shopping_cart)),
                 ),
-                position: badges.BadgePosition.topEnd(top: -4, end: 3),
-                child: IconButton(
-                    onPressed: () {}, icon: const Icon(Icons.shopping_cart)),
               ))
         ],
       ),

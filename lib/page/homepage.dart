@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 // ignore: depend_on_referenced_packages
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shoe_shop/page/cart_page.dart';
 
 import 'productpage.dart';
+import 'shoeShop.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -44,9 +44,9 @@ class _HomePageState extends State<HomePage> {
                   color: Colors.grey[100], shape: BoxShape.circle),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (__) {
-                    return ShorpingCart();
-                  }));
+                  // Navigator.of(context).push(MaterialPageRoute(builder: (__) {
+                  //   return ShorpingCart(cartproduct: ca,);
+                  // }));
                 },
                 child: badges.Badge(
                   showBadge: _showCartBadge,
@@ -187,12 +187,19 @@ class _HomePageState extends State<HomePage> {
                 style: GoogleFonts.adamina(
                     fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              Text(
-                "see all",
-                style: GoogleFonts.roboto(
-                    color: Colors.green,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (__) {
+                    return const ShoeShop();
+                  }));
+                },
+                child: Text(
+                  "see all",
+                  style: GoogleFonts.roboto(
+                      color: Colors.green,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400),
+                ),
               )
             ],
           ),

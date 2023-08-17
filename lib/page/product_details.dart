@@ -22,6 +22,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     'assets/images/three.png',
     'assets/images/two.png'
   ];
+  List<Products> cartProduct = [];
   bool isSelected = false;
   bool isSelectedbutton = false;
   int clickedIndex = 0;
@@ -252,6 +253,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       GestureDetector(
                         onTap: () {
                           setState(() {
+                            cartProduct.add(widget.products);
                             isSelectedbutton = !isSelectedbutton;
                           });
                         },
@@ -299,7 +301,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                         onTap: () {
                           Navigator.of(context)
                               .push(MaterialPageRoute(builder: (__) {
-                            return const ShorpingCart();
+                            return ShorpingCart(
+                              cartproduct: cartProduct,
+                            );
                           }));
                         },
                         child: Container(

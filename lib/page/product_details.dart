@@ -5,7 +5,6 @@ import 'package:shoe_shop/model/product_model.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shoe_shop/page/homepage.dart';
 
-import 'cart_page.dart';
 
 class ProductDetails extends StatefulWidget {
   final Products products;
@@ -299,12 +298,12 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (__) {
-                            return ShorpingCart(
-                              cartproduct: cartProduct,
-                            );
-                          }));
+                          // Navigator.of(context)
+                          //     .push(MaterialPageRoute(builder: (__) {
+                          //   return ShorpingCart(
+                          //     cartproduct: cartProduct,
+                          //   );
+                          // }));
                         },
                         child: Container(
                           width: 140,

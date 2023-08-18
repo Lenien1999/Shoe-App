@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:shoe_shop/model/product_model.dart';
 
 class ShorpingCart extends StatefulWidget {
-  final List<Products> cartproduct;
-  const ShorpingCart({super.key, required this.cartproduct});
+  final List<Products> cartProduct;
+  const ShorpingCart({super.key, required this.cartProduct});
 
   @override
   State<ShorpingCart> createState() => _ShorpingCartState();
@@ -54,7 +55,7 @@ class _ShorpingCartState extends State<ShorpingCart> {
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   children: [
-                    for (Products products in widget.cartproduct)
+                    for (Products products in widget.cartProduct)
                       Expanded(
                         child: Slidable(
                           key: const ValueKey(0),
@@ -131,11 +132,8 @@ class _ShorpingCartState extends State<ShorpingCart> {
                                                   child: GestureDetector(
                                                       onTap: () {
                                                         setState(() {
-                                                          if (addmore >= 1) {
-                                                            addmore--;
-                                                          } else {
-                                                            addmore = 1;
-                                                          }
+                                                          products.quantity -=
+                                                              1;
                                                         });
                                                       },
                                                       child: const Icon(
@@ -144,7 +142,8 @@ class _ShorpingCartState extends State<ShorpingCart> {
                                                 const SizedBox(
                                                   width: 5,
                                                 ),
-                                                Text(addmore.toString()),
+                                                Text(products.quantity
+                                                    .toString()),
                                                 const SizedBox(
                                                   width: 5,
                                                 ),
@@ -157,7 +156,7 @@ class _ShorpingCartState extends State<ShorpingCart> {
                                                   child: GestureDetector(
                                                     onTap: () {
                                                       setState(() {
-                                                        addmore++;
+                                                        products.quantity += 1;
                                                       });
                                                     },
                                                     child: const Icon(

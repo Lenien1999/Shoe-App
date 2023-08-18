@@ -1,7 +1,9 @@
-// ignore: file_names
-import 'package:flutter/material.dart';
-// ignore: depend_on_referenced_packages
+ import 'package:flutter/material.dart';
+import 'package:shoe_shop/model/product_model.dart';
+import 'package:shoe_shop/page/cart_page.dart';
 import 'package:badges/badges.dart' as badges;
+import 'product_details.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ShoeShop extends StatefulWidget {
   const ShoeShop({super.key});
@@ -11,7 +13,8 @@ class ShoeShop extends StatefulWidget {
 }
 
 class _ShoeShopState extends State<ShoeShop> {
-  final int _cartBadgeAmount = 3;
+  List<Products> cartproduct = [];
+  int _cartBadgeAmount = 0;
   // late bool _showCartBadge;
   Color color = Colors.red;
   @override
@@ -75,7 +78,12 @@ class _ShoeShopState extends State<ShoeShop> {
                       ),
                       position: badges.BadgePosition.topEnd(top: -4, end: 3),
                       child: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (__) {
+                              return ShorpingCart(cartProduct: cartproduct);
+                            }));
+                          },
                           icon: const Icon(Icons.shopping_cart)),
                     ),
                   ))
@@ -87,6 +95,115 @@ class _ShoeShopState extends State<ShoeShop> {
               "New Arrivals",
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
             ),
+          ),
+          Expanded(
+            child: GridView.builder(
+                itemCount: productItems.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 14,
+                    mainAxisSpacing: 14),
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                itemBuilder: (context, index) {
+                  final products = productItems[index];
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.of(context)
+                                  .push(MaterialPageRoute(builder: (__) {
+                                return ProductDetails(products: products);
+                              }));
+                            },
+                            child: Container(
+                              height: 240,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: Colors.grey.shade100),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 12, vertical: 10),
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              products.isAdded = true;
+                                              cartproduct.add(products);
+                                              _cartBadgeAmount += 1;
+                                            });
+                                          },
+                                          child: Icon(
+                                            products.isAdded
+                                                ? Icons.shopping_cart
+                                                : Icons.done_all,
+                                            color: products.isAdded
+                                                ? color
+                                                : Colors.grey,
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 12, vertical: 10),
+                                        child: CircleAvatar(
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                products.isSelected =
+                                                    !products.isSelected;
+                                              });
+                                            },
+                                            child: Icon(
+                                              Icons.favorite,
+                                              color: products.isSelected
+                                                  ? color
+                                                  : Colors.grey,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Image.asset(
+                                    products.imgUlr,
+                                    cacheHeight: 120,
+                                  ),
+                                  const SizedBox(
+                                    height: 6,
+                                  ),
+                                  Text(
+                                    products.title,
+                                    style: GoogleFonts.adamina(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w300),
+                                  ),
+                                  Text(
+                                    "\$ ${products.price}",
+                                    style: GoogleFonts.adamina(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }),
           )
         ],
       ),

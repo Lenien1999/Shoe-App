@@ -17,7 +17,9 @@ class _ShoeShopState extends State<ShoeShop> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 230, 216, 216),
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 230, 216, 216),
         elevation: 0.0,
         centerTitle: true,
         actions: [
@@ -34,6 +36,7 @@ class _ShoeShopState extends State<ShoeShop> {
         ],
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -78,6 +81,13 @@ class _ShoeShopState extends State<ShoeShop> {
                   ))
             ],
           ),
+          const Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text(
+              "New Arrivals",
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
+            ),
+          )
         ],
       ),
     );

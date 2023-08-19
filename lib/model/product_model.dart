@@ -3,8 +3,8 @@ class Products {
   final String title;
   final String description;
   String imgUlr;
-  final double price;
-    int quantity;
+  double price;
+  int quantity;
   bool isSelected, isAdded;
 
   Products(

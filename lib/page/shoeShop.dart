@@ -1,4 +1,4 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:shoe_shop/model/product_model.dart';
 import 'package:shoe_shop/page/cart_page.dart';
 import 'package:badges/badges.dart' as badges;
@@ -137,27 +137,24 @@ class _ShoeShopState extends State<ShoeShop> {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 12, vertical: 10),
                                         child: GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              products.isAdded = true;
-                                              cartproduct.add(products);
-                                              _cartBadgeAmount += 1;
-                                            });
-                                          },
-                                          child: Icon(
-                                            products.isAdded
-                                                ? Icons.shopping_cart
-                                                : Icons.done_all,
-                                            color: products.isAdded
-                                                ? color
-                                                : Colors.grey,
-                                          ),
-                                        ),
+                                            onTap: () {
+                                              setState(() {
+                                                products.isAdded =
+                                                    !products.isAdded;
+                                                cartproduct.add(products);
+                                                _cartBadgeAmount += 1;
+                                              });
+                                            },
+                                            child: products.isAdded
+                                                ? Container()
+                                                : Icon(Icons.shopping_cart,
+                                                    color: color)),
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 12, vertical: 10),
                                         child: CircleAvatar(
+                                          backgroundColor: Colors.white,
                                           child: GestureDetector(
                                             onTap: () {
                                               setState(() {

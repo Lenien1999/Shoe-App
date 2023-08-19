@@ -13,6 +13,16 @@ class ShorpingCart extends StatefulWidget {
 
 class _ShorpingCartState extends State<ShorpingCart> {
   int addmore = 1;
+  double totalPrice = 0;
+  void getTotalPrice() {
+    double total = 0;
+    for (var item in widget.cartProduct) {
+      total += item.price;
+    }
+    setState(() {
+      totalPrice = total;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +115,7 @@ class _ShorpingCartState extends State<ShorpingCart> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          "\$ ${products.price * addmore}",
+                                          "\$ ${products.price * products.quantity}",
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 18,
@@ -198,7 +208,9 @@ class _ShorpingCartState extends State<ShorpingCart> {
                       color: Colors.grey,
                     ),
                     buildBottomPrice(
-                        price: '-\$30.00', title: 'Total', discount: false),
+                        price: totalPrice.toString(),
+                        title: 'Total',
+                        discount: false),
                     const SizedBox(
                       height: 30,
                     ),

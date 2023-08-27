@@ -12,7 +12,6 @@ class ShorpingCart extends StatefulWidget {
 }
 
 class _ShorpingCartState extends State<ShorpingCart> {
-  int addmore = 1;
   double totalPrice = 0;
   void getTotalPrice() {
     double total = 0;
@@ -22,6 +21,12 @@ class _ShorpingCartState extends State<ShorpingCart> {
     setState(() {
       totalPrice = total;
     });
+  }
+
+  @override
+  void initState() {
+    getTotalPrice();
+    super.initState();
   }
 
   @override
@@ -141,10 +146,15 @@ class _ShorpingCartState extends State<ShorpingCart> {
                                                           color: Colors.white),
                                                   child: GestureDetector(
                                                       onTap: () {
-                                                        setState(() {
-                                                          products.quantity -=
-                                                              1;
-                                                        });
+                                                        if (products.quantity >
+                                                            1) {
+                                                          setState(() {
+                                                            products.quantity -=
+                                                                1;
+                                                            totalPrice -=
+                                                                products.price;
+                                                          });
+                                                        }
                                                       },
                                                       child: const Icon(
                                                           Icons.remove)),
@@ -167,6 +177,8 @@ class _ShorpingCartState extends State<ShorpingCart> {
                                                     onTap: () {
                                                       setState(() {
                                                         products.quantity += 1;
+                                                        totalPrice +=
+                                                            products.price;
                                                       });
                                                     },
                                                     child: const Icon(

@@ -173,9 +173,11 @@ class _ShoeShopState extends State<ShoeShop> {
                                       ),
                                     ],
                                   ),
-                                  Image.asset(
-                                    products.imgUlr,
-                                    cacheHeight: 120,
+                                  Expanded(
+                                    child: Image.asset(
+                                      products.imgUlr,
+                                      cacheHeight: 120,
+                                    ),
                                   ),
                                   const SizedBox(
                                     height: 6,

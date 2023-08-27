@@ -6,6 +6,7 @@ class Products {
   double price;
   int quantity;
   bool isSelected, isAdded;
+  String selectedCartegoy;
 
   Products(
       {this.quantity = 1,
@@ -15,6 +16,7 @@ class Products {
       required this.title,
       required this.description,
       required this.imgUlr,
+      required this.selectedCartegoy,
       required this.price});
 }
 
@@ -27,7 +29,8 @@ final productItems = <Products>[
       description:
           "As the night came, the world became quiet and peaceful. It felt like the whole world was taking a break, enjoying the stillness of the night. ",
       imgUlr: 'assets/images/one.jpg',
-      price: 20.0),
+      price: 20.0,
+      selectedCartegoy: 'jordan'),
   Products(
       isSelected: false,
       isAdded: false,
@@ -36,7 +39,8 @@ final productItems = <Products>[
       description:
           "As the night came, the world became quiet and peaceful. It felt like the whole world was taking a break, enjoying the stillness of the night. ",
       imgUlr: 'assets/images/two.png',
-      price: 50.0),
+      price: 50.0,
+      selectedCartegoy: 'Addidas'),
   Products(
       id: 3,
       isSelected: false,
@@ -45,7 +49,8 @@ final productItems = <Products>[
       description:
           "As the night came, the world became quiet and peaceful. It felt like the whole world was taking a break, enjoying the stillness of the night. ",
       imgUlr: 'assets/images/three.png',
-      price: 70.0),
+      price: 70.0,
+      selectedCartegoy: 'vivan'),
   Products(
       isSelected: false,
       isAdded: false,
@@ -54,7 +59,8 @@ final productItems = <Products>[
       description:
           "As the night came, the world became quiet and peaceful. It felt like the whole world was taking a break, enjoying the stillness of the night. ",
       imgUlr: 'assets/images/four.png',
-      price: 20.0),
+      price: 20.0,
+      selectedCartegoy: 'Nike'),
   Products(
       isSelected: false,
       id: 5,
@@ -63,7 +69,8 @@ final productItems = <Products>[
       description:
           "As the night came, the world became quiet and peaceful. It felt like the whole world was taking a break, enjoying the stillness of the night. ",
       imgUlr: 'assets/images/addidas.png',
-      price: 70.0),
+      price: 70.0,
+      selectedCartegoy: 'jordan'),
   Products(
       isSelected: false,
       isAdded: false,
@@ -72,5 +79,6 @@ final productItems = <Products>[
       description:
           "As the night came, the world became quiet and peaceful. It felt like the whole world was taking a break, enjoying the stillness of the night. ",
       imgUlr: 'assets/images/one.jpg',
-      price: 20.0),
+      price: 20.0,
+      selectedCartegoy: 'jordan'),
 ];

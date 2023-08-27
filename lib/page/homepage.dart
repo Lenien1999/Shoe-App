@@ -18,6 +18,8 @@ class _HomePageState extends State<HomePage> {
   final int _cartBadgeAmount = 3;
   late bool _showCartBadge;
   Color color = Colors.red;
+  String selectedCategory = 'Addidas';
+  int selectedCartegory = 0;
   @override
   Widget build(BuildContext context) {
     _showCartBadge = _cartBadgeAmount > 0;
@@ -117,10 +119,34 @@ class _HomePageState extends State<HomePage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            buildCategory(imrUrl: 'assets/images/addidas.png'),
-            buildCategory(imrUrl: 'assets/images/nb.png'),
-            buildCategory(imrUrl: 'assets/images/nike.png'),
-            buildCategory(imrUrl: 'assets/images/vans.png'),
+            GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedCategory = 'Addidas';
+                  });
+                },
+                child: buildCategory(imrUrl: 'assets/images/addidas.png')),
+            GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedCategory = 'jordan';
+                  });
+                },
+                child: buildCategory(imrUrl: 'assets/images/nb.png')),
+            GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedCategory = 'Nike';
+                  });
+                },
+                child: buildCategory(imrUrl: 'assets/images/nike.png')),
+            GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedCategory = 'Nike';
+                  });
+                },
+                child: buildCategory(imrUrl: 'assets/images/vans.png')),
           ],
         ),
         Container(
@@ -205,7 +231,10 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         Expanded(
-          child: BuildProductPage(color: color),
+          child: BuildProductPage(
+            color: color,
+            selectedcategory: selectedCategory,
+          ),
         ),
       ]),
     );

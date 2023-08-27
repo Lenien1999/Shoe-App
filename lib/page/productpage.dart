@@ -6,24 +6,33 @@ import 'package:shoe_shop/page/product_details.dart';
 import '../model/product_model.dart';
 
 class BuildProductPage extends StatelessWidget {
+  final String selectedcategory;
   const BuildProductPage({
     super.key,
     required this.color,
+    required this.selectedcategory,
   });
 
   final Color color;
 
   @override
   Widget build(BuildContext context) {
+    int itemCount = productItems
+        .where((element) => element.selectedCartegoy == selectedcategory)
+        .toList()
+        .length;
     return GridView.builder(
-      itemCount: productItems.length,
+      itemCount: itemCount,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2, crossAxisSpacing: 14, mainAxisSpacing: 14),
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
       physics: const BouncingScrollPhysics(),
       itemBuilder: ((context, index) {
-        final products = productItems[index];
+        final filteredProduct = productItems
+            .where((element) => element.selectedCartegoy == selectedcategory)
+            .toList();
+        final products = filteredProduct[index];
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
@@ -55,9 +64,11 @@ class BuildProductPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Image.asset(
-                          products.imgUlr,
-                          cacheHeight: 120,
+                        Expanded(
+                          child: Image.asset(
+                            products.imgUlr,
+                            cacheHeight: 120,
+                          ),
                         ),
                       ],
                     ),
